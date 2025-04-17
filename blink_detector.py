@@ -20,3 +20,16 @@ def detect_blink_from_evoked(evoked, channel='TP10', threshold=-200, fs=256, tmi
     # Returns True if threshold is passed
     # Returns False if threshold is not passed
     return post_cue.min() < threshold
+
+def detect_blink_from_buffer(buffer, threshold, channel_index=3, fs=256, window_s=0.2):
+    """Detects blinks from a live buffer in the last 'window_s' seconds"""
+
+    # Converts the window_s to samples
+    # 256 * 0.2 = 51 samples
+    window_size = int(window_s * fs)
+
+    # Grabs the last window_size samples from selected EEG channel
+    signal = buffer[channel_index, -window_size:]
+
+    # Returns the lowest value in the signal chunk
+    return signal.min() < threshold
