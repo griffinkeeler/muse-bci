@@ -1,0 +1,14 @@
+# Ignore the virtual environment
+.venv/
+
+# Ignore Python cache files
+__pycache__/
+*.py[cod]
+
+# Ignore EEG data logs unless committed intentionally
+*.csv
+*.log
+
+# IDE and OS junk
+.idea/
+.DS_Store
