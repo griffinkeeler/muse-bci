@@ -3,9 +3,9 @@ import time
 from pylsl import StreamInlet, resolve_streams
 import numpy as np
 from blink_detector import detect_blink_from_buffer
-from epoch_mne import get_threshold
+from epoch_mne import get_blink_threshold
 
-blink_threshold = get_threshold() + 20
+blink_threshold = get_blink_threshold()
 
 print("Blink threshold:", blink_threshold)
 
