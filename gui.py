@@ -1,10 +1,11 @@
-import FreeSimpleGUI as sg
 import time
 from time import sleep
 import threading
+import pandas as pd
+import FreeSimpleGUI as sg
 from raw_data_collection import raw_eeg_to_csv
 from filter_raw_data import filter_eeg_csv
-import pandas as pd
+from epoch_mne import get_blink_threshold
 
 def countdown(window):
     """Background thread that outputs
@@ -79,7 +80,7 @@ def window_one():
 
     # Window is created.
     window = sg.Window("Blink Calibrator", layout_one,
-                       size=(250, 200), auto_size_text=True, finalize=True)
+                       size=(500, 300), auto_size_text=True, finalize=True)
 
     # Main Loop
     while True:
@@ -179,22 +180,34 @@ def window_three():
     layout_three = [[sg.Text()], [sg.Text()], [sg.Text()],
                     [sg.Text()],
                     [sg.Text("Calibration Complete!")],
-                    [sg.Text()],
+                    [[sg.Push(), sg.Button('View Results'), sg.Push()]],
+                    [[sg.Push(), sg.Text(key='-VIEW_THRESHOLD-'), sg.Push()]],
                     [sg.Text()], [sg.Text()], [sg.Text()]
                     ]
+
+    window = sg.Window("Calibration Complete", layout_three, finalize=True)
 
     threading.Thread(target=lambda: filter_eeg_csv(
         input_path='/Users/griffinkeeler/PycharmProjects/muse-bci/raw_eeg_data.csv',
         output_path='/Users/griffinkeeler/PycharmProjects/muse-bci/filtered_eeg_data.csv'
     )).start()
 
-    window = sg.Window("Calibration Complete", layout_three, finalize=True)
+    def compute_threshold():
+        threshold = get_blink_threshold()
+        window.write_event_value('-THRESHOLD_READY-', threshold)
 
     while True:
         event, values = window.read()
 
         if event == sg.WIN_CLOSED:
             break
+
+        elif event == 'View Results':
+            threading.Thread(target=compute_threshold, daemon=True).start()
+
+        elif event == '-THRESHOLD_READY-':
+            threshold = values['-THRESHOLD_READY-']
+            window['-VIEW_THRESHOLD-'].update(f"Blink threshold: {threshold:.2f}")
 
 def main():
     window_one()
