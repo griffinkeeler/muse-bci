@@ -79,7 +79,7 @@ def window_one():
 
     # Window is created.
     window = sg.Window("Blink Calibrator", layout_one,
-                       size=(250, 200), auto_size_text=True, finalize=True)
+                       size=(500, 300), auto_size_text=True, finalize=True)
 
     # Main Loop
     while True:
