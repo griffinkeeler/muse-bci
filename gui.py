@@ -1,10 +1,11 @@
-import FreeSimpleGUI as sg
 import time
 from time import sleep
 import threading
+import pandas as pd
+import FreeSimpleGUI as sg
 from raw_data_collection import raw_eeg_to_csv
 from filter_raw_data import filter_eeg_csv
-import pandas as pd
+
 
 def countdown(window):
     """Background thread that outputs
