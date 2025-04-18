@@ -9,6 +9,8 @@ def get_threshold_from_evoked(
     """Calculates the average threshold for an EEG channel
     in an evoked waveform.
 
+    Args:
+        channel (str):
     Returns:
         float: a real-time detection threshold."""
 
