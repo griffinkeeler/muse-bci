@@ -44,7 +44,6 @@ print("Threshold:", blink_threshold)
 
 # Mike the turtle
 mike = turtle.Turtle()
-
 # Turtle for labelling pen status
 label = turtle.Turtle()
 label.hideturtle()
@@ -82,22 +81,22 @@ while True:
             min_interval = 0.2
 
             # Check for a double blink in 1 second
-            if len(double_blink_times) == 2:
-                double_blink_interval = double_blink_times[1] - double_blink_times[0]
-                if min_interval < double_blink_interval < 1.3:
-
-                    pen_down = not pen_down
-
-                    label.clear()
-                    if pen_down:
-                        mike.pendown()
-                        label.write("Pen is down")
-                    else:
-                        mike.penup()
-                        label.write("Pen is up")
-                    double_blink_times = [] # resets to avoid double detection
-                    continue
-            mike.right(90)
+            # if len(double_blink_times) == 2:
+            #     double_blink_interval = double_blink_times[1] - double_blink_times[0]
+            #     if min_interval < double_blink_interval < 1.3:
+            #
+            #         pen_down = not pen_down
+            #
+            #         label.clear()
+            #         if pen_down:
+            #             mike.pendown()
+            #             label.write("Pen is down")
+            #         else:
+            #             mike.penup()
+            #             label.write("Pen is up")
+            #         double_blink_times = [] # resets to avoid double detection
+            #         continue
+            mike.right(45)
 
     # Jaw clench commands
     if current_time - last_clench_time > clench_cooldown:
