@@ -6,13 +6,16 @@ from time import sleep
 import pandas as pd
 
 def raw_eeg_to_csv():
-    # Finds all active LSL (Lab Streaming Layer) streams.
-    streams = resolve_streams()
+    try:
+        # Finds all active LSL (Lab Streaming Layer) streams.
+        streams = resolve_streams()
 
-    # Loops through each stream 's' in 'streams'.
-    # if s.type() is EEG, 'next' gets the first match.
-    eeg_streams = next(s for s in streams if s.type() == 'EEG')
-
+        # Loops through each stream 's' in 'streams'.
+        # if s.type() is EEG, 'next' gets the first match.
+        eeg_streams = next(s for s in streams if s.type() == 'EEG')
+    except StopIteration:
+        print("No Muses found.")
+        return
     # Connects the code to the EEG data stream.
     inlet = StreamInlet(eeg_streams)
 
