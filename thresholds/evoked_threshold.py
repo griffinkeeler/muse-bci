@@ -1,4 +1,4 @@
-def get_threshold_from_evoked(
+def create_threshold_from_evoked(
         evoked,
         channel,
         fs=256,

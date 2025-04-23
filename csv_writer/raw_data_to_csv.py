@@ -13,8 +13,9 @@ def raw_eeg_to_csv():
         # Loops through each stream 's' in 'streams'.
         # if s.type() is EEG, 'next' gets the first match.
         eeg_streams = next(s for s in streams if s.type() == 'EEG')
+        print("Connected to Muse 2 headset.")
     except StopIteration:
-        print("No Muses found.")
+        print("Muse 2 not found.")
         return
     # Connects the code to the EEG data stream.
     inlet = StreamInlet(eeg_streams)

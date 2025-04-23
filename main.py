@@ -1,7 +1,7 @@
-from gui import window_one
+from gui.windows.window_one import create_window_one
 
 def main():
-    window_one()
+    create_window_one()
 
 if __name__ == "__main__":
     main()
