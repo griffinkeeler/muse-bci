@@ -21,7 +21,6 @@ def plot_eeg_csv(filepath):
 
 def main():
     plot_eeg_csv('/Users/griffinkeeler/PycharmProjects/muse-bci/filtered_eeg_data.csv')
-    plot_eeg_csv('/Users/griffinkeeler/PycharmProjects/muse-bci/raw_eeg_data.csv')
 
 if __name__ == "__main__":
     main()
